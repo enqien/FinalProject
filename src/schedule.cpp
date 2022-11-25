@@ -109,50 +109,6 @@ V2D schedule(const V2D &courses, const std::vector<std::string> &timeslots){
     std::vector<std::vector<bool>> edges(courses.size(), std::vector<bool>(courses.size()));
     //std::map<std::string, std::pair<std::string, int>> graph;
     V2D to_return;
-
-    for (unsigned int i = 0; i < timeslots.size(); i++) {
-        to_return.push_back({timeslots.at(i)});
-    }
-
-    //populate the graph
-    for (unsigned int i = 0; i < courses.size(); i++) {
-        vertices.push_back({courses.at(i).at(0), 999});
-        for (unsigned int j = i + 1; j < courses.size(); j++) {
-            std::set<std::string> first(courses.at(i).begin() + 1, courses.at(i).end());
-            std::set<std::string> second(courses.at(j).begin() + 1, courses.at(j).end());
-            first.merge(second);
-            if (second.size() != 0) {
-                edges.at(i).at(j) = true;
-                edges.at(j).at(i) = true;
-            }
-        }
-
-    }
-    int slots_num = timeslots.size();
-
-
-
-    for (unsigned int i = 0; i < vertices.size(); i++) {
-        std::vector<bool> colors(slots_num, true);
-        for (unsigned int z = 0; z < edges.size(); z++) {
-            if (edges.at(z).at(i) && vertices.at(z).second != 999) {
-                colors.at(vertices.at(z).second) = false;
-            }
-        }
-        for (unsigned int z = 0; z < colors.size(); z++) {
-            if (colors.at(z)) {
-                vertices.at(i).second = z;
-                break;
-            }
-        }
-        if (vertices.at(i).second == 999) {
-            return {{"-1"}};
-        }
-    }
-
-    for (unsigned int i = 0; i < vertices.size(); i++) {
-        to_return.at(vertices.at(i).second).push_back(vertices.at(i).first);
-    }
     
     return to_return;
 }
