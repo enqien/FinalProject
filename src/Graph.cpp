@@ -5,6 +5,9 @@ const int Graph::InvalidWeight = INT_MIN;
 const string Graph:: InvalidLabel = "_CS225INVALIDLABEL";
 const Edge Graph::InvalidEdge = Edge(Graph::InvalidVertex, Graph::InvalidVertex, Graph::InvalidWeight, Graph::InvalidLabel);
 
+Graph::Graph() : weighted(true), directed(false), random(Random(0)) {
+
+}
 Graph::Graph(bool weighted) : weighted(weighted),directed(false),random(Random(0))
 {
 }
@@ -386,8 +389,8 @@ void Graph::print() const
             string vertexColumn = "    => " + ss.str();
             vertexColumn += " " ;
             cout << std::left << std::setw(26) << vertexColumn;
-            string edgeColumn = "edge label = \"" + it2->second.getLabel()+ "\"";
-            cout << std::left << std::setw(26) << edgeColumn;
+            // string edgeColumn = "edge label = \"" + it2->second.getLabel()+ "\"";
+            // cout << std::left << std::setw(26) << edgeColumn;
             if (weighted)
                 cout << "weight = " << it2->second.getWeight();
             cout << endl;
